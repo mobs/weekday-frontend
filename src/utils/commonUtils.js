@@ -9,3 +9,25 @@ export function capitalizeWords(str) {
 
     return words.join(' ');
 }
+
+export function filterJobs(jobs, filters) {
+    return jobs.filter(job => {
+      // Filter by role
+      if (filters.value && job.jobRole !== filters.value) {
+        return false;
+      }
+      // Filter by experience
+      else if (filters.value && job.minExp.toString() < filters.value) {
+        return false;
+      }
+      // Filter by job type
+      else if (filters.jobType && job.jobType !== filters.jobType) {
+        return false;
+      }
+      // Filter by minimum base pay
+      else if (filters.minBasePay && job.basePay < filters.minBasePay) {
+        return false;
+      }
+      return true;
+    });
+  }
