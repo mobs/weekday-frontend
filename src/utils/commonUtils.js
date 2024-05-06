@@ -10,22 +10,29 @@ export function capitalizeWords(str) {
     return words.join(' ');
 }
 
-export function filterJobs(jobs, filters) {
+export function searchJobsByCompany(jobs, name) {
+  return jobs.filter(job => job.companyName.toLowerCase().includes(name.toLowerCase()));
+}
+
+export function filterJobs(jobs, filters, idx) {
+  console.log(filters)
     return jobs.filter(job => {
-      // Filter by role
-      if (filters.value && job.jobRole !== filters.value) {
+
+      // Filterring by role
+      if (idx === 0 && filters && job.jobRole !== filters.value) {
         return false;
       }
-      // Filter by experience
-      else if (filters.value && job.minExp.toString() < filters.value) {
+
+      // Filterring by experience
+      if (idx === 2 && filters && job.minExp < filters.value) {
         return false;
       }
-      // Filter by job type
-      else if (filters.jobType && job.jobType !== filters.jobType) {
-        return false;
-      }
-      // Filter by minimum base pay
-      else if (filters.minBasePay && job.basePay < filters.minBasePay) {
+      // Filterring by job type
+      // if (idx === 3 && filters && job.jobType !== filters.value) {
+      //   return false;
+      // }
+      // Filterring by minimum base pay
+      if (idx === 4 && filters && job.minJdSalary < filters.value) {
         return false;
       }
       return true;
